@@ -1,0 +1,111 @@
+<form (ngSubmit)="onSubmit(Form)" #Form="ngForm">
+  <div class="container mt-5">
+    <h1 class="text-black">Form Validation</h1>
+    <form>
+      <div class="mb-3">
+        <input
+          type="text"
+          class="form-control"
+          name="Name"
+          placeholder="Name"
+          [(ngModel)]="name"
+          ngModel
+          required
+          #modelName="ngModel"
+          [ngClass]="
+            modelName.invalid && (modelName.dirty || modelName.touched)
+              ? 'is-invalid'
+              : ''
+          "
+        />
+      </div>
+      <div
+      *ngIf="modelName.invalid"
+      id="validationServerUsernameFeedback"
+      class="invalid-feedback"
+    >
+      Please enter your Name.
+    </div>
+      <div class="mb-3">
+        <input
+          type="text"
+          class="form-control"
+          name="Email"
+          placeholder="Email"
+          [(ngModel)]="email"
+          required
+          email
+          #modelEmail="ngModel"
+          [ngClass]="
+            modelEmail.invalid && (modelEmail.dirty || modelEmail.touched)
+              ? 'is-invalid'
+              : ''
+          "
+        />
+      </div>
+      <div
+      *ngIf="modelEmail.invalid"
+      id="validationServerUsernameFeedback"
+      class="invalid-feedback"
+    >
+      Please enter your Email.
+    </div>
+      <div class="mb-3">
+        <input
+          type="text"
+          class="form-control"
+          name="phone Number"
+          placeholder="Phone Number"
+          [(ngModel)]="phoneNumber"
+          ngModel
+          required
+          #modelPhone="ngModel"
+          minlength="10"
+          [ngClass]="
+            modelPhone.invalid && (modelPhone.dirty || modelPhone.touched)
+              ? 'is-invalid'
+              : ''
+          "
+        />
+      </div>
+      <div
+      *ngIf="modelPhone.invalid"
+      id="validationServerUsernameFeedback"
+      class="invalid-feedback"
+    >
+      Please enter your phoneNumber.
+    </div>
+      <button class="btn btn-primary rounded" type="submit" (click)="add()">
+        {{ btnText }}
+      </button>
+    </form>
+  </div>
+
+  <div class="container mt-5">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let form of FormComponent">
+          <td>{{ form.name }}</td>
+          <td>{{ form.email }}</td>
+          <td>{{ form.phoneNumber }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="edit(form.id)">
+              Edit
+            </button>
+            <button class="btn btn-danger ms-2" (click)="delete(form.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>
